@@ -62,6 +62,18 @@ CLIにコピーして使っている場合は `~/.claude/agents/*.md` に対し�
 
 ### Claude Code(CLI)
 
+このリポジトリはプラグイン本体であると同時に、マーケットプレイス(`barorin-plugins`)としても登録できます。
+
+```bash
+# マーケットプレイスを登録
+claude plugin marketplace add barorin/cpa-toolkit
+
+# プラグインをインストール
+claude plugin install cpa-toolkit@barorin-plugins
+```
+
+Claude Code のセッション内から行う場合は `/plugin marketplace add barorin/cpa-toolkit` → `/plugin install cpa-toolkit@barorin-plugins` です。更新は `claude plugin update cpa-toolkit`(`marketplace.json` の `version` を上げた時に配布されます)。
+
 プラグインとして使わない場合は、中身を個人設定フォルダにコピーするだけでも動きます:
 
 ```bash

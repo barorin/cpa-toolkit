@@ -1,0 +1,27 @@
+{
+  "name": "barorin-plugins",
+  "owner": {
+    "name": "barorin",
+    "url": "https://github.com/barorin"
+  },
+  "metadata": {
+    "description": "barorin が公開する Claude Code プラグインのマーケットプレイス",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "cpa-toolkit",
+      "source": "./",
+      "displayName": "CPA Toolkit",
+      "description": "公認会計士向けワークフロー集: 会計論点相談・企業調査・仕訳分析・監査調書等。高度な推論は高推論モデル、収集・処理・整形は低コストモデルのサブエージェントに振り分けてコストを最適化する。",
+      "version": "0.1.0",
+      "author": {
+        "name": "barorin"
+      },
+      "homepage": "https://github.com/barorin/cpa-toolkit",
+      "repository": "https://github.com/barorin/cpa-toolkit",
+      "license": "MIT",
+      "keywords": ["accounting", "audit", "cpa"]
+    }
+  ]
+}
