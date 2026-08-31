@@ -1,0 +1,37 @@
+# --- 業務データ・成果物(絶対にコミットしない) ---
+# スクリプトの既定出力先。仕訳データ・抽出サンプル・調書が落ちる
+output/
+
+# 入力データ・成果物ファイル
+*.txt
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.docx
+*.doc
+*.pdf
+
+# 設定・クライアント固有情報
+config.json
+colmap.json
+clients/
+templates/
+
+# ログ(相談ログ・基準ウォッチの実行ログ)
+*.jsonl
+watch-log.json
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.venv/
+venv/
+
+# --- OS / エディタ ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
