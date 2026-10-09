@@ -1,6 +1,6 @@
 # cpa-toolkit
 
-公認会計士業務のためのプラグイン。12のワークフロー(スキル)と7つの専任サブエージェントで構成され、**高度な推論は高推論モデル(メインセッション)、情報収集・データ処理・文書読解・整形は低コストモデル** に振り分けることで、品質を保ちながら使用量を節約します。品質が要の査閲工程(reviewer)だけは逆に高推論モデルで動きます。
+公認会計士業務のためのプラグイン。13のワークフロー(スキル)と7つの専任サブエージェントで構成され、**高度な推論は高推論モデル(メインセッション)、情報収集・データ処理・文書読解・整形は低コストモデル** に振り分けることで、品質を保ちながら使用量を節約します。品質が要の査閲工程(reviewer)だけは逆に高推論モデルで動きます。
 
 ## 構成
 
@@ -19,6 +19,7 @@
 | disclosure-check      | 財務諸表・注記の開示チェック                         | 機械的照合=data-processor/doc-extractor           |
 | standards-watch       | 会計・監査基準の新着ウォッチ(定期実行対応)           | 収集=researcher                                   |
 | financial-dd          | 財務DD(正常収益力・ネットデット・運転資本)           | 収集・読解・計算・整形=低コスト群 / 査閲=reviewer |
+| yuho-search           | 有報サーチ(JICPA)での開示例検索・整理(Chrome操作)   | 抽出=doc-extractor / 整形=report-writer           |
 | cpa-setup             | 共通設定(事務所方針・様式・閾値)の初期登録・変更     | メインで完結                                      |
 
 ### サブエージェント
@@ -102,6 +103,7 @@ claude --model best   # Fableが使えればFable、なければOpus
 - 「注記のチェックをして」 → disclosure-check
 - 「今月の基準の新着をまとめて」「毎週届けて」 → standards-watch
 - 「この会社の財務DDを手伝って」 → financial-dd
+- 「収益認識の本人代理人の開示例を有報サーチで探して」 → yuho-search(JICPA会員・有報サーチ契約と Claude in Chrome が必要)
 
 ### 運用チップス
 
@@ -113,7 +115,7 @@ claude --model best   # Fableが使えればFable、なければOpus
 
 - **共通設定**: 「初期設定をして」で cpa-setup スキルが事務所の既定値(適用基準、重要性方針、JET閾値、様式、想定読者等)を `${CLAUDE_PLUGIN_DATA}/config.json`(CLI直コピー運用では `~/.claude/cpa-toolkit-data/config.json`)に保存します。以後、全スキルが設定済み項目の確認質問を省略します。プラグイン更新でも消えない場所です。
 - **記憶**: standards-watch は実行ログを持ち、前回報告分を除いた差分だけを報告します。accounting-consult は相談ログを蓄積し、過去の類似論点との整合を保ちます。
-- **同梱スクリプト**: 仕訳テスト(`skills/journal-analysis/scripts/jet_tests.py`)とサンプリング(`skills/sampling/scripts/sampling.py`)は検証済みスクリプトで実行され、毎回コードを書き直しません。実行のたびにロジックが揺れず、再実行・再現が確実になり、生成トークンも節約されます。
+- **同梱スクリプト**: 仕訳テスト(`skills/journal-analysis/scripts/jet_tests.py`)、サンプリング(`skills/sampling/scripts/sampling.py`)、有報サーチ操作(`skills/yuho-search/scripts/yuho.js`)は検証済みスクリプトで実行され、毎回コードを書き直しません。実行のたびにロジックが揺れず、再実行・再現が確実になり、生成トークンも節約されます。
 - **Gotchas を育てる**: 各スキル末尾の Gotchas は実際の失敗を蓄積する場所です。Claudeが新しい罠を踏んだら追記してください(CLI ではファイルを直接編集、Cowork ではチャットで「〇〇のGotchasに追記して改訂版を作って」と依頼)。スキルはこの積み重ねで良くなります。
 
 ## 設計上の原則
